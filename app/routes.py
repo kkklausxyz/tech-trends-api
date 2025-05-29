@@ -11,7 +11,7 @@ def get_trends():
         conn = get_connection()
         cur = conn.cursor()
         cur.execute("""
-            SELECT language_counts
+            SELECT language_counts, updated_at
             FROM trending_languages
             WHERE since = %s
         """, (period,))
@@ -22,10 +22,15 @@ def get_trends():
         if not row:
             return jsonify([])
 
-        language_counts = row[0]  # 这是一个字典
+        language_counts, updated_at = row
         result = [{"language": lang, "count": count} for lang, count in language_counts.items()]
-        result.sort(key=lambda x: x["count"], reverse=True)  # 按 count 降序排
-        return jsonify(result)
+        result.sort(key=lambda x: x["count"], reverse=True)
+
+        return jsonify({
+            "data": result,
+            "updated_at": updated_at.isoformat()
+        })
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
