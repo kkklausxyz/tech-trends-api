@@ -77,10 +77,10 @@ Visit http://localhost:5000/api/trends
 
 ## 🔒 Notes
 
-Data ETL is run separately and updates the database with GitHub trending data (fully compliant with GitHub’s usage policies)
+- Data ETL is run separately and updates the database with GitHub trending data (fully compliant with GitHub’s usage policies)
 
 ## 📊 Part of the Tech Trends Explorer Project
 
-Frontend: React + Tailwind CSS → Vercel
-Backend: Flask + PostgreSQL → Render + Supabase
-Data: GitHub Trending (ETL via Python)
+- Frontend: React + Tailwind CSS → Vercel
+- Backend: Flask + PostgreSQL → Render + Supabase
+- Data: GitHub Trending (ETL via Python)
