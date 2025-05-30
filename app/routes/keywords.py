@@ -29,7 +29,7 @@ def get_keywords():
         words = re.findall(r'\b[a-zA-Z]{3,}\b', all_text.lower())
 
         filtered_words = [w for w in words if w not in stop_words]
-        common = Counter(words).most_common(30)
+        common = Counter(filtered_words).most_common(30)
 
         results = [{"keyword": w, "weight": c} for w, c in common]
 
