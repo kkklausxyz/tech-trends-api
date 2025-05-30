@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from app.db import get_connection
-from app.utils import api_response
+from app.utils.api_response import api_response
 
 popular_bp = Blueprint("popular", __name__)
 

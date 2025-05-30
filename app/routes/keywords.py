@@ -1,6 +1,8 @@
 from flask import Blueprint, request
 from app.db import get_connection
-from app.utils import api_response
+from app.utils.api_response import api_response
+from app.utils.stopwords import stop_words
+
 import re
 from collections import Counter
 
@@ -23,9 +25,10 @@ def get_keywords():
         cur.close()
         conn.close()
 
-        # 合并描述并提取单词（至少三个字母），统计词频
         all_text = " ".join([r[0] for r in rows if r[0]])
         words = re.findall(r'\b[a-zA-Z]{3,}\b', all_text.lower())
+
+        filtered_words = [w for w in words if w not in stop_words]
         common = Counter(words).most_common(30)
 
         results = [{"keyword": w, "weight": c} for w, c in common]
