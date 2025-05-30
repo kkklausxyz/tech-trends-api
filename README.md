@@ -4,7 +4,7 @@ This is the backend API for **Tech Trends Explorer**, a web application that vis
 
 ## 🌐 Live API
 
-👉 [Visit the API](https://tech-trends-api-dymi.onrender.com/api/trends)
+👉 [Visit the API](https://tech-trends-api-dymi.onrender.com/api)
 
 ## ⚙️ Tech Stack
 
@@ -13,29 +13,85 @@ This is the backend API for **Tech Trends Explorer**, a web application that vis
 - **Deployment**: [Render](https://render.com/)
 - **ETL**: Python-based script fetching GitHub trending data
 
-## 📡 API Endpoint
+## 📡 API Endpoints
 
-### `GET /api/trends?since=period`
+### 1. GET /api/language-distribution?since=period
+Returns the most frequent languages appearing in GitHub Trending repositories.
 
-Fetches trending language data.
+Query Parameters:
 
-#### Parameters:
-
-- `since`: One of `daily`, `weekly`, or `monthly`
-
-#### Example:
+since — One of daily, weekly, or monthly
+Example:
 
 ```bash
-curl https://your-render-url.onrender.com/api/trends?since=weekly
+curl https://your-api-url/api/language-distribution?since=weekly
+```
+
+Response:
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": [
+    { "language": "Python", "count": 125, "color": "#3572A5" },
+    { "language": "JavaScript", "count": 103, "color": "#f1e05a" }
+  ]
+}
+```
+
+### 2. GET /api/keywords?since=period
+Returns the most common keywords extracted from trending repository descriptions.
+
+Query Parameters:
+
+since — One of daily, weekly, or monthly
+Example:
+
+```bash
+curl https://your-api-url/api/keywords?since=weekly
 ```
 
 Response:
 
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": [
+    { "keyword": "agent", "weight": 8 },
+    { "keyword": "data", "weight": 6 }
+  ]
+}
+```
+
+### 3. GET /api/top-repositories?since=period
+Returns the top starred repositories on GitHub Trending.
+
+Query Parameters:
+
+since — One of daily, weekly, or monthly
+Example:
+
 ```bash
-[
-  { "language": "Python", "count": 125 },
-  { "language": "JavaScript", "count": 103 }
-]
+curl https://your-render-url.onrender.com/api/top-repositories?since=weekly
+```
+
+Response:
+
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": [
+    {
+      "repo_name": "mindsdb/mindsdb",
+      "repo_url": "https://github.com/mindsdb/mindsdb",
+      "language": "Python",
+      "stars": 30776,
+      "description": "AI's query engine for federated data"
+    }
+  ]
+}
 ```
 
 ## 🛠️ Getting Started Locally
@@ -43,7 +99,7 @@ Response:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/tech-trends-api.git
+git clone https://github.com/kkklausxyz/tech-trends-api.git
 cd tech-trends-api
 ```
 
