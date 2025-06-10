@@ -19,7 +19,7 @@ def get_keywords():
         cur.execute("""
             SELECT description
             FROM trending_repositories
-            WHERE time_span = %s AND fetched_at::date = CURRENT_DATE
+            WHERE time_span = %s 
         """, (since,))
         rows = cur.fetchall()
         cur.close()

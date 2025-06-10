@@ -15,7 +15,7 @@ def get_language_distribution():
         cur.execute("""
             SELECT language, language_color, COUNT(*) as count
             FROM trending_repositories
-            WHERE time_span = %s AND fetched_at::date = CURRENT_DATE
+            WHERE time_span = %s 
             GROUP BY language, language_color
             ORDER BY count DESC
         """, (since,))

@@ -15,7 +15,7 @@ def get_top_repositories():
         cur.execute("""
             SELECT repo_name, repo_url, description, language, stars_total
             FROM trending_repositories
-            WHERE time_span = %s AND fetched_at::date = CURRENT_DATE
+            WHERE time_span = %s 
             ORDER BY stars_total DESC
         """, (since,))
         rows = cur.fetchall()
