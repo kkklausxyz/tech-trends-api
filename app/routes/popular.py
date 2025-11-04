@@ -14,8 +14,13 @@ def get_top_repositories():
 
         cur.execute("""
             SELECT repo_name, repo_url, description, language, stars_total
-            FROM trending_repositories
-            WHERE time_span = %s 
+            FROM (
+                SELECT repo_name, repo_url, description, language, stars_total,
+                       ROW_NUMBER() OVER (PARTITION BY repo_name ORDER BY stars_total DESC) as rn
+                FROM trending_repositories
+                WHERE time_span = %s
+            ) t
+            WHERE rn = 1
             ORDER BY stars_total DESC
         """, (since,))
         rows = cur.fetchall()
